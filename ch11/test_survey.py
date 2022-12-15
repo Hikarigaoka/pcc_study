@@ -8,6 +8,13 @@ class TestAnonymousSurvey(unittest.TestCase):
         """응답 하나가 제대레 저장되는지 테스트"""
         question = "What language did you first learn to speak?"
         my_survey = AnonymousSurvey(question)
+        my_survey.store_response('English')
+        self.assertIn('English', my_survey.responses)
+
+    def test_store_three_responses(self):
+        """응답 하나가 제대레 저장되는지 테스트"""
+        question = "What language did you first learn to speak?"
+        my_survey = AnonymousSurvey(question)
         responses = ['English', 'Spanish', 'Mandarin']
         for response in responses:
             my_survey.store_response(response)
