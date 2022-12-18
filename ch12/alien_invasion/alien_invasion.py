@@ -11,6 +11,9 @@ class AlienInvasion:
         self.screen = pygame.display.set_mode((1200, 800))
         pygame.display.set_caption("Alien Invasion")
 
+        # 배경색을 설정합니다
+        self.bg_color = (230, 230, 230)
+
     def run_game(self):
         """게임의 메인 루프를 시작합니다"""
 
@@ -19,6 +22,9 @@ class AlienInvasion:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     sys.exit()
+
+            # 루프의 반복마다 화면을 다시 그립니다
+            self.screen.fill(self.bg_color)
             
             # 가장 최근에 그려진 화면을 표시합니다
             pygame.display.flip()
