@@ -3,6 +3,7 @@ import sys
 import pygame
 from settings import Settings
 from ship import Ship
+from bullet import Bullet
 
 
 class AlienInvasion:
@@ -19,6 +20,7 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         self.ship = Ship(self)
+        self.bullets = pygame.sprite.Group()
 
     def run_game(self):
         """게임의 메인 루프를 시작합니다"""
@@ -26,8 +28,9 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
+            self._update_bullets()
             self._update_screen()
-
+             
     def _check_events(self):
         """키 입력과 마우스 이벤트에 반응합니다"""
         # 키보드와 마우스 이벤트를 주시합니다
@@ -47,6 +50,8 @@ class AlienInvasion:
             self.ship.moving_left = True
         elif event.key == pygame.K_q:
             sys.exit()
+        elif event.key == pygame.K_SPACE:
+            self._fire_bullet()
 
     def _check_keyup_events(self, event):
         """키에서 손을 뗄 때 반응합니다"""
@@ -54,11 +59,29 @@ class AlienInvasion:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
+    
+    def _fire_bullet(self):
+        """새 탄환을 생성하고 bullets 그룹에 추가합니다"""
+        if len(self.bullets) < self.settings.bullet_allowed:
+            new_bullet = Bullet(self)
+            self.bullets.add(new_bullet)
+
+    def _update_bullets(self):
+        """탄환 위치를 업데이트하고 사라진 탄환을 제거합니다"""
+        # 탄환 위치를 업데이트 합니다
+        self.bullets.update()
+        
+        #사라진 탄환을 제거합니다
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:
+                self.bullets.remove(bullet)
 
     def _update_screen(self):
         """화면에 이미지를 업데이트하고 새 화면으로 그립니다"""
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
+        for bullet in self.bullets.sprites():
+            bullet.draw_bullet()
 
         # 가장 최근에 그려진 화면을 표시합니다
         pygame.display.flip()
