@@ -26,10 +26,10 @@ class Ship:
     def update(self):
         """움직임 플래그에 따라 우주선 위치를 업데이트 합니다"""
         # rect가 아닌 우주선의 x 값을 업데이트 합니다
-        if self.moving_right:
+        if self.moving_right and self.rect.right < self.screen_rect.right:
             self.x += self.settings.ship_speed
         
-        if self.moving_left:
+        if self.moving_left and self.rect.left > 0:
             self.x -= self.settings.ship_speed
 
         # self.x를 써서 rect 객체를 업데이트합니다
