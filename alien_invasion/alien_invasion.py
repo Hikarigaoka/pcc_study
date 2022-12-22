@@ -33,6 +33,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
             self._update_screen()
              
     def _check_events(self):
@@ -63,23 +64,34 @@ class AlienInvasion:
             self.ship.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
-    
+
     def _create_fleet(self):
         """외계인 함대를 만듭니다"""
         # 외계인 하나를 만들고 한 줄에 몇이 들어갈지 정합니다
         # 외계인 사이의 공간은 외계인 하나의 너비와 같습니다
         alien = Alien(self)
-        alien_width = alien.rect.width
+        alien_width, alien_height = alien.rect.size
         available_space_x = self.settings.screen_width - (2 * alien_width)
         number_aliens_x = available_space_x // (2 * alien_width)
+        # 화면 높이에 알맞은 외계인 줄 수를 결정합니다
+        ship_height = self.ship.rect.height
+        available_space_y = (self.settings.screen_height - 
+                                (3 * alien_height) - ship_height)
+        number_rows = available_space_y // (2 * alien_height)
 
-        # 외계인 첫 줄을 만듭니다
-        for alien_number in range(number_aliens_x):
-            # 외계인을 만들고 줄에 배치합니다
-            alien = Alien(self)
-            alien.x = alien_width + (2 * alien_width * alien_number)
-            alien.rect.x = alien.x
-            self.aliens.add(alien)
+        # 외계인 함대를 만듭니다
+        for row_number in range(number_rows):
+            for alien_number in range(number_aliens_x):
+                self._create_allien(alien_number, row_number)
+
+    def _create_allien(self, alien_number, row_number):
+        """외계인을 만들고 줄에 배치합니다"""
+        alien = Alien(self)
+        alien_width, alien_height = alien.rect.size
+        alien.x = alien_width + (2 * alien_width * alien_number)
+        alien.rect.x = alien.x
+        alien.rect.y = alien.rect.height + 2 * alien.rect.height * row_number
+        self.aliens.add(alien)
 
     def _fire_bullet(self):
         """새 탄환을 생성하고 bullets 그룹에 추가합니다"""
@@ -96,6 +108,10 @@ class AlienInvasion:
         for bullet in self.bullets.copy():
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
+
+    def _update_aliens(self):
+        """함대에 속한 외계인의 위치를 업데이트 합니다"""
+        self.aliens.update()
 
     def _update_screen(self):
         """화면에 이미지를 업데이트하고 새 화면으로 그립니다"""
