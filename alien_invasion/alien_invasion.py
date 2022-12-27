@@ -65,6 +65,19 @@ class AlienInvasion:
         elif event.key == pygame.K_LEFT:
             self.ship.moving_left = False
 
+    def _check_fleet_edges(self):
+        """외계인이 경계에 닿았다면 그에 맞게 반응합니다"""
+        for alien in self.aliens.sprites():
+            if alien.check_edges():
+                self._change_fleet_direction()
+                break
+    
+    def _change_fleet_direction(self):
+        """함대 전체를 아래로 내리고 방향을 바꿉니다"""
+        for alien in self.aliens.sprites():
+            alien.rect.y += self.settings.fleet_drop_speed
+        self.settings.fleet_direction *= -1
+
     def _create_fleet(self):
         """외계인 함대를 만듭니다"""
         # 외계인 하나를 만들고 한 줄에 몇이 들어갈지 정합니다
@@ -111,6 +124,7 @@ class AlienInvasion:
 
     def _update_aliens(self):
         """함대에 속한 외계인의 위치를 업데이트 합니다"""
+        self._check_fleet_edges()
         self.aliens.update()
 
     def _update_screen(self):
