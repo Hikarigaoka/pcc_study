@@ -122,6 +122,10 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+        # 외계인을 맞힌 탄환이 있는지 체크합니다
+        #  맞힌 탄환이 있으면 그 탄환과 외계인을 제거합니다
+        collections = pygame.sprite.groupcollide(self.bullets, self.aliens, True, True)
+
     def _update_aliens(self):
         """함대에 속한 외계인의 위치를 업데이트 합니다"""
         self._check_fleet_edges()
