@@ -13,8 +13,8 @@ class Settings:
         self.ship_speed = 5
 
         # 외계인 세팅
-        self.alien_speed = 1.0
-        self.fleet_drop_speed = 10
+        self.alien_speed = 5.0
+        self.fleet_drop_speed = 30
         # fleet_direction이 1이면 오른쪽 -1이면 왼쪽입니다
         self.fleet_direction = 1
 
@@ -23,4 +23,4 @@ class Settings:
         self.bullet_width = 3
         self.bullet_height = 15
         self.bullet_color = (60, 60, 60)
-        self.bullet_allowed = 3
+        self.bullet_allowed = 15
