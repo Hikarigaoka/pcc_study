@@ -10,7 +10,7 @@ class Settings:
         self.bg_color = (230, 230, 230)
 
         # 우주선 세팅
-        self.ship_speed = 5
+        self.ship_speed = 8
 
         # 외계인 세팅
         self.alien_speed = 5.0
@@ -19,8 +19,8 @@ class Settings:
         self.fleet_direction = 1
 
         # 탄환 세팅
-        self.bullet_speed = 3.0
-        self.bullet_width = 3
-        self.bullet_height = 15
+        self.bullet_speed = 80.0
+        self.bullet_width = 10
+        self.bullet_height = 120
         self.bullet_color = (60, 60, 60)
-        self.bullet_allowed = 15
+        self.bullet_allowed = 100

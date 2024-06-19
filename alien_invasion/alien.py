@@ -11,7 +11,7 @@ class Alien(Sprite):
         self.settings = ai_game.settings
 
         #외계인 이미지를 불러오고 rect 속성을 설정합니다
-        self.image = pygame.image.load('alien_invasion/images/alien.bmp')
+        self.image = pygame.image.load('/Users/rex/Documents/GitHub/pcc_study/alien_invasion/images/alien.bmp')
         self.rect = self.image.get_rect()
 
         #외계인을 화면 좌측 상단에 배치합니다

@@ -35,6 +35,7 @@ class AlienInvasion:
             self._update_bullets()
             self._update_aliens()
             self._update_screen()
+
              
     def _check_events(self):
         """키 입력과 마우스 이벤트에 반응합니다"""
@@ -57,6 +58,9 @@ class AlienInvasion:
             sys.exit()
         elif event.key == pygame.K_SPACE:
             self._fire_bullet()
+        elif event.key == pygame.K_z:
+            self._create_fleet()
+
 
     def _check_keyup_events(self, event):
         """키에서 손을 뗄 때 반응합니다"""
@@ -77,6 +81,8 @@ class AlienInvasion:
         for alien in self.aliens.sprites():
             alien.rect.y += self.settings.fleet_drop_speed
         self.settings.fleet_direction *= -1
+        
+
 
     def _create_fleet(self):
         """외계인 함대를 만듭니다"""
