@@ -1,4 +1,5 @@
 import pygame
+import os
 
 class Ship:
     """우주선을 관리하는 클래스"""
@@ -10,7 +11,9 @@ class Ship:
         self.screen_rect = ai_game.screen.get_rect()
 
         # 우주선 이미지를 불러오고 그 사각형을 가져옵니다
-        self.image = pygame.image.load('/Users/rex/Documents/GitHub/pcc_study/alien_invasion/images/ship.bmp')
+        current_path = os.path.dirname(__file__)
+        image_path = os.path.join(current_path, 'images', 'ship.bmp')
+        self.image = pygame.image.load(image_path)
         self.rect = self.image.get_rect()
 
         # 우주선을 불러올 때마다 화면의 아래쪽 중앙에서 시작합니다
